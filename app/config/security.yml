@@ -14,6 +14,7 @@ security:
             security: false
 
         main:
+            logout_on_user_change: true
             anonymous: ~
             pattern: ^/
             form_login:
@@ -21,7 +22,7 @@ security:
                 check_path: login_check
                 always_use_default_target_path:  true
                 default_target_path:  /
-            logout: ~
+            logout: ~           
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
