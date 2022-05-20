@@ -1,6 +1,8 @@
 <?php
 
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Bundle\MonologBundle\MonologBundle;
+use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
@@ -45,6 +47,6 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yaml');
+        $loader->load($this->getProjectDir().'/config/packages/config_'.$this->getEnvironment().'.yaml');
     }
 }
