@@ -4,6 +4,8 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Bundle\MonologBundle\MonologBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
+use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 
 class AppKernel extends Kernel
 {
@@ -23,8 +25,8 @@ class AppKernel extends Kernel
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            // $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+            // $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
 
         return $bundles;
