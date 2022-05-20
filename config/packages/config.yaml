@@ -1,7 +1,6 @@
 imports:
-    - { resource: parameters.yml }
-    - { resource: security.yml }
-    - { resource: services.yml }
+    - { resource: security.yaml }
+    - { resource: services.yaml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -13,7 +12,7 @@ framework:
     #translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
-        resource: "%kernel.root_dir%/config/routing.yml"
+        resource: "%kernel.root_dir%/config/packages/routing.yaml"
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
@@ -49,7 +48,7 @@ doctrine:
         password: "%database_password%"
         charset:  UTF8
         # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
+        #   1. add the path in parameters.yaml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
