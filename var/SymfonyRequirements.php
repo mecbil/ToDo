@@ -431,12 +431,12 @@ class SymfonyRequirements extends RequirementCollection
             'Change the permissions of either "<strong>app/cache/</strong>" or  "<strong>var/cache/</strong>" directory so that the web server can write into it.'
         );
 
-        $logsDir = is_dir(__DIR__.'/../var/logs') ? __DIR__.'/../var/logs' : __DIR__.'/logs';
+        $logDir = is_dir(__DIR__.'/../var/log') ? __DIR__.'/../var/log' : __DIR__.'/log';
 
         $this->addRequirement(
-            is_writable($logsDir),
-            'app/logs/ or var/logs/ directory must be writable',
-            'Change the permissions of either "<strong>app/logs/</strong>" or  "<strong>var/logs/</strong>" directory so that the web server can write into it.'
+            is_writable($logDir),
+            'app/log/ or var/log/ directory must be writable',
+            'Change the permissions of either "<strong>app/log/</strong>" or  "<strong>var/log/</strong>" directory so that the web server can write into it.'
         );
 
         if (version_compare($installedPhpVersion, '7.0.0', '<')) {
