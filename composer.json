@@ -58,5 +58,10 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yaml"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true
+        }
     }
 }
