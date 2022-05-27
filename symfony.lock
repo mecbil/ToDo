@@ -179,9 +179,6 @@
     "symfony/http-kernel": {
         "version": "v4.4.41"
     },
-    "symfony/intl": {
-        "version": "v5.4.8"
-    },
     "symfony/monolog-bridge": {
         "version": "v5.2.12"
     },
@@ -222,6 +219,9 @@
         "version": "v1.25.0"
     },
     "symfony/polyfill-intl-grapheme": {
+        "version": "v1.25.0"
+    },
+    "symfony/polyfill-intl-icu": {
         "version": "v1.25.0"
     },
     "symfony/polyfill-intl-normalizer": {
