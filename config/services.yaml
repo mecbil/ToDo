@@ -26,20 +26,20 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    Knp\Bundle\MarkdownBundle\MarkdownParserInterface: '@markdown.parser'
+    # Knp\Bundle\MarkdownBundle\MarkdownParserInterface: '@markdown.parser'
     Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
     # AppBundle\Service\MarkdownTransformer:
     #     arguments:
     #         $cacheDriver: '@doctrine_cache.providers.my_markdown_cache'
-    AppBundle\Doctrine\HashPasswordListener:
-        tags: [doctrine.event_subscriber]
+    # AppBundle\Doctrine\HashPasswordListener:
+    #     tags: [doctrine.event_subscriber]
     # AppBundle\Form\TypeExtension\HelpFormExtension:
     #     tags:
     #         - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
-    AppBundle\Service\MessageManager:
-        arguments:
-            - ['You can do it!', 'Dude, sweet!', 'Woot!']
-            - ['We are *never* going to figure this out', 'Why even try again?', 'Facepalm']
+    # AppBundle\Service\MessageManager:
+    #     arguments:
+    #         - ['You can do it!', 'Dude, sweet!', 'Woot!']
+    #         - ['We are *never* going to figure this out', 'Why even try again?', 'Facepalm']
     # AppBundle\EventSubscriber\AddNiceHeaderEventSubscriber:
     #     arguments:
     #         $showDiscouragingMessage: true
