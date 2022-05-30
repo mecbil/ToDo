@@ -21,6 +21,14 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+    
+    App\Repository\Repository:
+        autowire: true
+        tags: ['doctrine.repository_service']
+    
+    # App\Repository\TaskRepository\:
+    #     resource: '../src/Repository'
+    #     tags: ['doctrine.repository_service']
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
