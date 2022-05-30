@@ -15,10 +15,11 @@
         }
     },
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.3",
         "doctrine/cache": "^2.2",
         "doctrine/common": "^3.3",
         "doctrine/doctrine-bundle": "^2.6",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
         "sensio/framework-extra-bundle": "^6.2",
         "symfony/asset": "5.4.*",

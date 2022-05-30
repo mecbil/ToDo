@@ -1,12 +1,18 @@
 security:
+
+    password_hashers:
+            # Use native password hasher, which auto-selects and migrates the best
+            # possible hashing algorithm (which currently is "bcrypt")
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+            
     encoders:
         AppBundle\Entity\User: bcrypt
 
     providers:
-        doctrine:
+        app_user_provider:
             entity:
-                class: AppBundle:User
-                property: username
+                class: App\Entity\User
+                property: email
 
     firewalls:
         dev:
