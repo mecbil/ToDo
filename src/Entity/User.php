@@ -39,12 +39,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    private $role;
+
     public function getId()
     {
         return $this->id;
     }
 
-    public function getUsername()
+    public function getUserIdentifier()
     {
         return $this->username;
     }
@@ -86,5 +91,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(?string $role): self
+    {
+        $this->role = $role;
+
+        return $this;
     }
 }
