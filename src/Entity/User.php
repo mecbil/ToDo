@@ -29,6 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank(message="Vous devez saisir un mot de passe.")
      */
     private $password;
 
@@ -40,16 +41,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=15, nullable=true)
+     * @ORM\Column(type="json")
+     * @Assert\NotBlank(message="Vous devez saisir un rôle utilisateur.")
      */
-    private $role;
+    private $roles;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getUserIdentifier()
+    public function getUsername()
     {
         return $this->username;
     }
@@ -84,23 +86,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $email;
     }
 
-    public function getRoles()
+    public function getRoles(): string
     {
-        return array('ROLE_USER');
+        return $this->roles;
     }
 
     public function eraseCredentials()
     {
     }
 
-    public function getRole(): ?string
+    public function setRoles(string $roles): self
     {
-        return $this->role;
-    }
-
-    public function setRole(?string $role): self
-    {
-        $this->role = $role;
+        $this->roles = $roles;
 
         return $this;
     }
