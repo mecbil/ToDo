@@ -3,8 +3,8 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     exception_controller: null
-    number_format:
-        thousands_separator: ','
-    form_themes:
-        - bootstrap_3_layout.html.twig
+    # number_format:
+    #     thousands_separator: ','
+    form_themes: [bootstrap_4_layout.html.twig]
+
         # - _formTheme.html.twig
