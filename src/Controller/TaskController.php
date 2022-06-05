@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Entity\User;
 use App\Form\TaskType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -27,13 +28,19 @@ class TaskController extends AbstractController
      */
     public function createAction(Request $request, EntityManagerInterface $em)
     {
+        $user = $this->getUser();
+
         $task = new Task();
+        
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // $em = $this->getDoctrine()->getManager();
+
+            // Add an author automatically
+            $task->setAuthor($user);
 
             $em->persist($task);
             $em->flush();

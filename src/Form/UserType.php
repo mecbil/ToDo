@@ -27,22 +27,17 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, ['label' => 'Adresse email'])
             ->add('roles', ChoiceType::class, [
                 'label' => 'Role de l\'utilisateur',
-                'choices' => ['Choix' => '', 'ROLE_ADMIN' => 'ROLE_ADMIN', 'ROLE_USER' => 'ROLE_USER'],
+                'choices' => ['ROLE_ADMIN' => 'ROLE_ADMIN', 'ROLE_USER' => 'ROLE_USER'],
                 'required' => true,
-                'multiple' => false,
-                'expanded' => false,
-                
-                
+                'multiple' => true,
+                'expanded' => true,
             ]);
             // ->add('roles', CollectionType::class, [
             //     'entry_type'   => ChoiceType::class,
+            //     'label' => 'Role de l\'utilisateur',
             //     'entry_options'  => [
-            //         'choices'  => [
-            //             'Nashville' => 'nashville',
-            //             'Paris'     => 'paris',
-            //             'Berlin'    => 'berlin',
-            //             'London'    => 'london',
-            //         ],
+            //         'choices' => ['Choix' => '', 'ROLE_ADMIN' => 'ROLE_ADMIN', 'ROLE_USER' => 'ROLE_USER'],
+            //         'label' => false,
             //     ],
             // ]
             // );
