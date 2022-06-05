@@ -26,13 +26,15 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/create", name="task_create")
      */
-    public function createAction(User $user,Request $request, EntityManagerInterface $em)
+    public function createAction(Request $request, EntityManagerInterface $em)
     {
+        $user = $this->getUser();
+
         $task = new Task();
+        
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             // $em = $this->getDoctrine()->getManager();
