@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="json")
      * @Assert\NotBlank(message="Vous devez saisir un rôle utilisateur.")
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="author", orphanRemoval=true)
@@ -71,6 +71,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername($username)
     {
         $this->username = $username;
+    }
+
+    /**
+     * The public representation of the user (e.g. a username, an email address, etc.)
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->username;
     }
 
     public function getSalt()
@@ -102,20 +112,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $email;
     }
 
-    public function getRoles(): array
+    public function getRoles()
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles = array('User');
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function eraseCredentials()
     {
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(string $roles): self
     {
         $this->roles = $roles;
 

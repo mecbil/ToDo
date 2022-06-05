@@ -25,14 +25,24 @@ class UserType extends AbstractType
                 'second_options' => ['label' => 'Tapez le mot de passe à nouveau'],
             ])
             ->add('email', EmailType::class, ['label' => 'Adresse email'])
-            ->add('roles', CollectionType::class, [
+            ->add('roles', ChoiceType::class, [
                 'label' => 'Role de l\'utilisateur',
-                'entry_type'   => ChoiceType::class,
-                    'entry_options'  => [
-                        'label' => false,
-                        'choices' => ['User' => 'ROLE_USER','Admin' =>'ROLE_ADMIN'],
-                        'required' => true,
-                ]
+                'choices' => ['Choix' => '', 'ROLE_ADMIN' => 'ROLE_ADMIN', 'ROLE_USER' => 'ROLE_USER'],
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
             ]);
+            // ->add('roles', CollectionType::class, [
+            //     'entry_type'   => ChoiceType::class,
+            //     'entry_options'  => [
+            //         'choices'  => [
+            //             'Nashville' => 'nashville',
+            //             'Paris'     => 'paris',
+            //             'Berlin'    => 'berlin',
+            //             'London'    => 'london',
+            //         ],
+            //     ],
+            // ]
+            // );
     }
 }
