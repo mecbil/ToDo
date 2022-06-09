@@ -19,8 +19,12 @@ class UserController extends AbstractController
      */
     public function listAction(ManagerRegistry $doctrine)
     {
-        $repoUsers = $doctrine->getRepository(User::class);
-        return $this->render('user/list.html.twig', ['users' => $repoUsers->findAll()]);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $repoUsers = $doctrine->getRepository(User::class);
+            return $this->render('user/list.html.twig', ['users' => $repoUsers->findAll()]);
+        }
+        return $this->redirectToRoute('homepage');      
+
     }
 
     /**
