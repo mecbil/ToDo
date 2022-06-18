@@ -38,17 +38,16 @@ class UserTest extends TestCase
         $this->assertFalse($user->getRoles() === ['ROLE_ADMIN_No']);
     }
 
-    // public function testIsEmpty()
-    // {
-    //     $user = new User();
+    public function testIsEmpty()
+    {
+        $user = new User();
 
-    //     // $this->assertEmpty($user->getUsername());
-    //     // // $this->assertEmpty($user->getPassword());
-    //     // $this->assertEmpty($user->getEmail());
-    //     // $this->assertEmpty($user->getRoles());
-    //     // // $this->assertEmpty($user->getId());
-    //     // $this->assertEmpty($user->getUserIdentifier());
-    // }
+        $this->assertEmpty($user->getUsername());
+        $this->assertEmpty($user->getEmail());
+        $this->assertEmpty($user->getRoles());
+        $this->assertEmpty($user->getId());
+        $this->assertEmpty($user->getUserIdentifier());
+    }
 
     public function testAddGetRemoveTask()
     {
