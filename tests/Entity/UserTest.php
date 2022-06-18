@@ -47,6 +47,8 @@ class UserTest extends TestCase
         $this->assertEmpty($user->getRoles());
         $this->assertEmpty($user->getId());
         $this->assertEmpty($user->getUserIdentifier());
+        $this->assertEmpty($user->getSalt());
+        $this->assertEmpty($user->eraseCredentials());
     }
 
     public function testAddGetRemoveTask()
