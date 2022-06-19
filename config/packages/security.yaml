@@ -5,8 +5,8 @@ security:
             # possible hashing algorithm (which currently is "bcrypt")
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
             
-    encoders:
-        AppBundle\Entity\User: bcrypt
+    # encoders:
+    #     AppBundle\Entity\User: bcrypt
 
     providers:
         app_user_provider:
@@ -28,9 +28,9 @@ security:
             #     check_path: login_check
             #     always_use_default_target_path:  true
             #     default_target_path:  /
-            # logout: ~           
-            pattern: ^/
-            anonymous: ~
+            # logout: ~ 
+            lazy: true
+            provider: app_user_provider
             form_login:
                 login_path: login
                 check_path: login_check
