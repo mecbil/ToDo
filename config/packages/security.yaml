@@ -30,7 +30,7 @@ security:
             #     default_target_path:  /
             # logout: ~           
             pattern: ^/
-            anonymous: true
+            anonymous: ~
             form_login:
                 login_path: login
                 check_path: login_check
