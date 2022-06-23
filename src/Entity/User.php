@@ -45,6 +45,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="json")
      * @Assert\NotBlank(message="Vous devez saisir un rôle utilisateur.")
+     * @Assert\Regex(
+     *     pattern="/^(?=.*[a-z])(?=.*\d).{8,}$/i",
+     *     message="Votre mot de passe doit avoir au moin -(08) Caractères- (01) chiffre- (01) caractère special"
+     * )
      */
     private $roles = [];
 
