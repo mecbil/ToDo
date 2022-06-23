@@ -40,7 +40,7 @@ class Task
     private $isDone;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
