@@ -1,7 +1,12 @@
-app:
-    resource: "../src/Controller/"
-    type:     annotation
-homepage:
-    path: /
-    defaults:
-        _controller: App\Controller\DefaultController::indexAction
+# app:
+#     resource: "../src/Controller/"
+#     type:     annotation
+# homepage:
+#     path: /
+#     defaults:
+#         _controller: App\Controller\DefaultController::indexAction
+login_check:
+  path: /login_check
+
+logout:
+  path: /logout
