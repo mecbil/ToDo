@@ -44,6 +44,7 @@
         "phpunit/phpunit": "^9.0",
         "symfony/dotenv": "^5.4",
         "symfony/maker-bundle": "^1.43",
+        "symfony/panther": "^1.1",
         "symfony/phpunit-bridge": "^6.1",
         "symfony/stopwatch": "^5.4",
         "symfony/web-profiler-bundle": "5.4.*"
