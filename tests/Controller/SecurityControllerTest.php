@@ -4,8 +4,6 @@ namespace App\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\DependencyInjection\Loader\Configurator\form;
-use Symfony\Component\DependencyInjection\Loader\Configurator\request;
 
 class SecurityControllerTest extends WebTestCase
 {
@@ -15,7 +13,6 @@ class SecurityControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/login');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('label', "Nom d'utilisateur");
 
     }
@@ -27,21 +24,15 @@ class SecurityControllerTest extends WebTestCase
         
         $form = $crawler->selectButton('Se connecter')->form();
 
-        $form['_username'] = 'Hoareau';
+        $form['_username'] = 'Delaunay';
         $form['_password'] = 'Azerty1+';
 
         $client->submit($form);
-        
-        $crawler = $client->request('GET', '/login');
 
-        // $this->assertSelectorTextContains('h1', "Bienvenue sur Todo List,");
-        
-        $this->assertSelectorExists('.alert.alert-danger');
-        // $this->assertResponseStatusCodeSame(Response::HTTP_Redi);
-        // $this->assertResponseRedirects('/');
-        // $client->followRedirect();
-        
-
+        $this->assertResponseRedirects();
+        $client->followRedirect();       
+        $this->assertSelectorNotExists('.alert.alert-danger');
+        $this->assertSelectorTextContains('h1', "Bienvenue sur Todo List,");
     }
 
     public function testLogonWithBadCredentials()
