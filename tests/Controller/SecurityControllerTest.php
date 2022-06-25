@@ -36,7 +36,7 @@ class SecurityControllerTest extends WebTestCase
 
         // $this->assertSelectorTextContains('h1', "Bienvenue sur Todo List,");
         
-        // $this->assertSelectorExists('.alert.alert-danger');
+        $this->assertSelectorExists('.alert.alert-danger');
         // $this->assertResponseStatusCodeSame(Response::HTTP_Redi);
         // $this->assertResponseRedirects('/');
         // $client->followRedirect();
