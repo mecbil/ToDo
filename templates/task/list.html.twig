@@ -29,7 +29,7 @@
                         </form>
                     
                         <form action="{{ path('task_delete', {'id' : task.id }) }}">
-                            <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                            <button class="btn btn-danger btn-sm pull-right" onclick="return window.confirm(`Êtes vous sûr de vouloir supprimer cette tâche ?!`)" tabindex="-1">Supprimer</button>
                         </form>
                     {% endif %}
 
