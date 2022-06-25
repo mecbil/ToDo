@@ -212,18 +212,6 @@
     "sebastian/version": {
         "version": "3.0.2"
     },
-    "sensio/framework-extra-bundle": {
-        "version": "6.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "5.2",
-            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
-        },
-        "files": [
-            "./config/packages/sensio_framework_extra.yaml"
-        ]
-    },
     "symfony/asset": {
         "version": "v4.4.40"
     },
@@ -344,6 +332,15 @@
     "symfony/options-resolver": {
         "version": "v5.4.3"
     },
+    "symfony/panther": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "877d853a05c6713665a2f4b954734592680abff6"
+        }
+    },
     "symfony/password-hasher": {
         "version": "v5.4.8"
     },
@@ -408,7 +405,6 @@
         },
         "files": [
             "./config/packages/prod/routing.yaml",
-            "./config/packages/routing.yaml",
             "./config/routes.yaml"
         ]
     },

@@ -32,6 +32,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank(message="Vous devez saisir un mot de passe.")
+     * @Assert\Regex(
+     *     pattern="/^(?=.*[a-z])(?=.*\d).{8,}$/i",
+     *     message="Votre mot de passe doit avoir au moin -(08) Caractères- (01) chiffre- (01) caractère special"
+     * )
      */
     private $password;
 
@@ -49,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     /**
-     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="author", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="author", cascade={"remove"})
      */
     private $tasks;
 

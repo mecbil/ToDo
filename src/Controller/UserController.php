@@ -4,11 +4,10 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+Use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -63,8 +62,13 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function editAction(User $user, Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher)
+    public function editAction($id, Request $request, ManagerRegistry $doctrine, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher)
     {
+        $repoUser = $doctrine->getRepository(User::class);
+        $user = $repoUser->find($id);
+        if (!$user) {
+            throw $this->createNotFoundException('Enregistrement non trouvé');
+        }
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -94,8 +98,14 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/delete", name="user_delete")
      */
-    public function deleteAction(User $user, EntityManagerInterface $em)
+    public function deleteAction($id, ManagerRegistry $doctrine, EntityManagerInterface $em)
     {
+        $repoUser = $doctrine->getRepository(User::class);
+        $user = $repoUser->find($id);
+        if (!$user) {
+            throw $this->createNotFoundException('Enregistrement non trouvé');
+        }
+
         // Supprimer l'utilisateur
         $em->remove($user);
         $em->flush();
