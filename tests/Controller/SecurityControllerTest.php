@@ -33,12 +33,14 @@ class SecurityControllerTest extends WebTestCase
         $client->submit($form);
         
         $crawler = $client->request('GET', '/login');
+
+        // $this->assertSelectorTextContains('h1', "Bienvenue sur Todo List,");
         
-        // $this->assertSelectorNotExists('.alert.alert-danger');
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        // $this->assertSelectorExists('.alert.alert-danger');
+        // $this->assertResponseStatusCodeSame(Response::HTTP_Redi);
         // $this->assertResponseRedirects('/');
         // $client->followRedirect();
-        // $this->assertSelectorTextContains('label', "Nom d'utilisateur");
+        
 
     }
 
