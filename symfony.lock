@@ -405,7 +405,6 @@
         },
         "files": [
             "./config/packages/prod/routing.yaml",
-            "./config/packages/routing.yaml",
             "./config/routes.yaml"
         ]
     },
