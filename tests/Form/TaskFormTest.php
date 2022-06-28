@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Form;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class TaskControllerTest extends WebTestCase
+class TaskFormTest extends WebTestCase
 {
     public function testDisplayTaskPageNotConnected(): void
     {
