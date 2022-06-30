@@ -52,25 +52,28 @@ class UserFormTest extends WebTestCase
 
     }
 
-    // public function testDisplayTaskPageConnected(): void
-    // {
-    //     $client = $this->connect();
+    public function testAddUser(): void
+    {
+        $client = $this->connect();
 
-    //     $this->assertResponseRedirects();
-    //     $client->followRedirect();
+        $this->assertResponseRedirects();
+        $client->followRedirect();
 
-    //     $crawler = $client->request('GET', '/users');
-    //     $this->assertSelectorTextContains('label', 'Title');
+        $crawler = $client->request('GET', '/users/create');
+        $this->assertSelectorTextContains('h1', 'Créer un utilisateur');
 
-    //     $form = $crawler->selectButton('Ajouter')->form();
-    //     $form["task[title]"] = 'title';
-    //     $form["task[content]"] = 'content';
+        $form = $crawler->selectButton('Ajouter')->form();
+        $form["user[username]"] = 'testUser';
+        $form["user[password][first]"] = 'Azerty1+';
+        $form["user[password][second]"] = 'Azerty1+';
+        $form["user[roles]"] = 'ROLE_USER';
+        $form["user[email]"] = 'testUser@test.fr';
 
-    //     $client->submit($form);
+        $client->submit($form);
 
-    //     $this->assertResponseRedirects();
-    //     $client->followRedirect();
-    //     $this->assertSelectorExists('.alert.alert-success');
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+        $this->assertSelectorExists('.alert.alert-success');
 
-    // }
+    }
 }

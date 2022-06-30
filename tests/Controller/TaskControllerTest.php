@@ -21,7 +21,7 @@ class TaskControllerTest extends WebTestCase
 
         $client->submit($form);
         //Suivre la redirection
-        $this->assertResponseRedirects();
+        $this->assertResponseRedirects('/');
         $client->followRedirect();   
 
         //Aller à l'adresse /tasks 
