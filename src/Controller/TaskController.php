@@ -20,6 +20,7 @@ class TaskController extends AbstractController
         $repoTask = $doctrine->getRepository(Task::class);
         $this->repo = $repoTask;
     }
+
     /**
      * @Route("/tasks", name="task_list")
      */
@@ -28,6 +29,16 @@ class TaskController extends AbstractController
         $repoTask = $this->repo;
         // return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);
         return $this->render('task/list.html.twig', ['tasks' => $repoTask->findAll()]);
+    }
+
+    /**
+     * @Route("/tasks/done", name="task_list_done")
+     */
+    public function listActionDone()
+    {
+        $repoTask = $this->repo;
+        // return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);
+        return $this->render('task/list.html.twig', ['tasks' => $repoTask->findBy(['isDone' => true])]);
     }
 
     /**
