@@ -2,8 +2,10 @@
 
 namespace App\Tests\Form;
 
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UserFormTest extends WebTestCase
 {
@@ -52,10 +54,10 @@ class UserFormTest extends WebTestCase
 
     }
 
-    public function testAddUser(): void
+    public function testAddEditDeleteUser(): void
     {
         $client = $this->connect();
-
+        //Add user
         $this->assertResponseRedirects();
         $client->followRedirect();
 
@@ -74,6 +76,39 @@ class UserFormTest extends WebTestCase
         $this->assertResponseRedirects();
         $client->followRedirect();
         $this->assertSelectorExists('.alert.alert-success');
+
+        //Recuperer le LastId
+        $kernel = self::bootKernel();
+        $this->entityManager = $kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+           
+        $user = $this->entityManager
+            ->getRepository(User::class)
+            ->findOneBy(['username' => 'testUser'])
+        ;
+        $id = $user->getId();
+        
+        // Editer le User
+        $crawler = $client->request('GET', '/users/'.$id.'/edit');
+        $this->assertSelectorTextContains('h1', 'Modifier');
+        $form = $crawler->selectButton('Modifier')->form();
+        $form["user[username]"] = 'testUser2';
+        $form["user[password][first]"] = 'Azerty1+';
+        $form["user[password][second]"] = 'Azerty1+';
+        $client->submit($form);
+
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+        $this->assertSelectorExists('.alert.alert-success');
+
+        // Supprimer le User
+        $crawler = $client->request('GET', '/users/'.$id.'/delete');
+
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+        $this->assertSelectorTextContains('h1', 'Liste des utilisateurs');
+
 
     }
 }
