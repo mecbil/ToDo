@@ -8,7 +8,6 @@ use App\Form\TaskType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
-// use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 Use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -26,19 +25,37 @@ class TaskController extends AbstractController
      */
     public function listAction()
     {
+        $user = $this->getUser();
+        $userRole = $user->getRoles();
+
         $repoTask = $this->repo;
         // return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);
-        return $this->render('task/list.html.twig', ['tasks' => $repoTask->findAll()]);
-    }
+
+        // Role = Admin;
+        if ($userRole == ['ROLE_ADMIN']) {
+            return $this->render('task/list.html.twig', ['tasks' => $repoTask->findAll()]);
+        }
+        // Role = User;
+        return $this->render('task/list.html.twig', ['tasks' => $repoTask->findBy(['author' => $user])]);
+    }   
 
     /**
      * @Route("/tasks/done", name="task_list_done")
      */
     public function listActionDone()
     {
+        $user = $this->getUser();
+        $userRole = $user->getRoles();
         $repoTask = $this->repo;
         // return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);
-        return $this->render('task/list.html.twig', ['tasks' => $repoTask->findBy(['isDone' => true])]);
+        
+        
+        // Role = Admin;
+        if ($userRole == ['ROLE_ADMIN']) {
+            return $this->render('task/list.html.twig', ['tasks' => $repoTask->findBy(['isDone' => true])]);
+        }
+        // Role = User;
+        return $this->render('task/list.html.twig', ['tasks' => $repoTask->findBy(['author' => $user, 'isDone' => true])]);
     }
 
     /**
@@ -80,6 +97,7 @@ class TaskController extends AbstractController
         $repoTask = $this->repo;
         $task = $repoTask->find($id);
 
+        // Editer l'enregistrement
         $this->denyAccessUnlessGranted("edit", $task);
         $form = $this->createForm(TaskType::class, $task);
 
@@ -109,6 +127,7 @@ class TaskController extends AbstractController
         $repoTask = $this->repo;
         $task = $repoTask->find($id);
 
+        // Modifer l'enregistrement
         $this->denyAccessUnlessGranted("edit", $task);
         $task->toggle(!$task->isDone());
         // $this->getDoctrine()->getManager()->flush();
@@ -131,7 +150,8 @@ class TaskController extends AbstractController
         // Trouver l'enregistrement avec l'ID $id
         $repoTask = $this->repo;
         $task = $repoTask->find($id);
-
+        
+        // Supprimer l'enregistrement
         $this->denyAccessUnlessGranted("delete", $task);
         // $em = $this->getDoctrine()->getManager();
         $this->em->remove($task);
