@@ -48,7 +48,7 @@ class TaskVoter extends Voter
                 
                 break;
             case self::DELETE:
-                // logic to determine if the user can VIEW
+                // logic to determine if the user can DELETE
                 // return true or false
                 return $this->canDelete($task, $user);
 

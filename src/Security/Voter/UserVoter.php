@@ -2,22 +2,27 @@
 
 namespace App\Security\Voter;
 
-
+use App\Entity\User;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserVoter extends Voter
 {
-    /**
-     * @param $attribute
-     * @param $subject
-     *
-     * @return boolean
-     */
+    public const EDIT = 'edit';
+    public const DELETE = 'delete';
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     protected function supports($attribute, $subject)
     {
-        return in_array($attribute, ['GET', 'EDIT'])
+        return in_array($attribute, [self::EDIT, self::DELETE])
             && $subject instanceof \App\Entity\User;
     }
 
@@ -28,7 +33,7 @@ class UserVoter extends Voter
      *
      * @return boolean
      */
-    protected function voteOnAttribute($attribute, $user, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $user, TokenInterface $token)
     {
         $user = $token->getUser();
         if (!$user instanceof UserInterface) {
@@ -39,17 +44,18 @@ class UserVoter extends Voter
         if ($this->security->isGranted('ROLE_ADMIN')) return true;
         
         switch ($attribute) {
-            case 'GET':
-                if ($user->getRoles(['Role_Admin'])) {
-                    return true;
-                }
+            case self::EDIT:
+                if ($this->security->isGranted('ROLE_ADMIN')) return true;
+
                 break;
-            case 'EDIT':
-                if ($user->getRoles(['Role_Admin'])) {
-                    return true;
-                }
+
+            case self::DELETE:
+                if ($this->security->isGranted('ROLE_ADMIN')) return true;
+
                 break;
         }
         return false;
     }
+
+    
 }

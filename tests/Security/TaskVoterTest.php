@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Security\Voter;
+namespace App\Tests\Security;
 
 use App\Entity\Task;
 use App\Security\Voter\TaskVoter;
