@@ -21,7 +21,8 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-
+        
+        // Ajouter un Admin
         $admin = new User();
 
         $admin->setEmail('admin@admin.fr');
@@ -32,7 +33,7 @@ class AppFixtures extends Fixture
         $manager->persist($admin);
         $this->addReference('admin', $admin);
 
-        // Ajouter 3 taches pour l'admin
+        // Ajouter 3 taches pour l'Admin
         for($i=0; $i<3; $i++) {
             $task = new Task();
 
@@ -42,7 +43,8 @@ class AppFixtures extends Fixture
             $task->setAuthor($admin);
             $manager->persist($task);
         }
-
+        
+        // Ajouter (05) Users
         for($i=0; $i<5; $i++) {
             $user = new User();
 
@@ -52,21 +54,19 @@ class AppFixtures extends Fixture
             $user->setPassword($this->passwordHasher->hashPassword($admin, 'Azerty1+'));
             $manager->persist($user);
 
-            // Ajouter 3 taches pour chaque user
-            for($k=0; $k<3; $k++) {
-                $task = new Task();
+        // Ajouter 3 taches pour chaque User
+        for($k=0; $k<3; $k++) {
+            $task = new Task();
 
-                $task->setTitle($faker->realtext(10, 2));
-                $task->setContent($faker->realtext(70, 2));
-                $task->setCreatedAt($faker->dateTimeBetween('-1 month', 'now'));
-                $task->setAuthor($user);
-                $manager->persist($task);
+            $task->setTitle($faker->realtext(10, 2));
+            $task->setContent($faker->realtext(70, 2));
+            $task->setCreatedAt($faker->dateTimeBetween('-1 month', 'now'));
+            $task->setAuthor($user);
+            $manager->persist($task);
         }
-
 
         }
 
         $manager->flush();
-
     }
 }
