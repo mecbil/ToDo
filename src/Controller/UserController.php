@@ -64,8 +64,10 @@ class UserController extends AbstractController
      */
     public function editAction($id, Request $request, ManagerRegistry $doctrine, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher)
     {
+        
         $repoUser = $doctrine->getRepository(User::class);
         $user = $repoUser->find($id);
+        $this->denyAccessUnlessGranted("edit", $user);
         if (!$user) {
             throw $this->createNotFoundException('Enregistrement non trouvé');
         }
