@@ -67,7 +67,9 @@ class UserController extends AbstractController
         
         $repoUser = $doctrine->getRepository(User::class);
         $user = $repoUser->find($id);
+
         $this->denyAccessUnlessGranted("edit", $user);
+        
         if (!$user) {
             throw $this->createNotFoundException('Enregistrement non trouvé');
         }
