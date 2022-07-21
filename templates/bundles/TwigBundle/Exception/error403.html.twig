@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Acces Interdit</title>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="https://bootswatch.com/4/darkly/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"> {% block stylesheets %}{% endblock %}
+<!-- Icon -->
+    <link rel="shortcut icon" href="{{ asset('images/fav.jpg') }}">
+  </head>
+  <body>
+  		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="begin">
+			<div class="container-fluid ">
+				<a class="navbar-brand" href="/">Snow Tricks
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarColor02">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_home') }}">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('tricks') }}">Tricks</a>
+						</li>
+						{% if app.user is null %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('app_login') }}">Sign in</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('app_register') }}">Sign up</a>
+							</li>
+						{% else %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('Admin') }}">Dashbord</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+							</li>
+						{% endif %}
+
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+    <div class="Container col-8 mx-auto">
+        {% block body %}
+        <h1 class='text-center'>Oops! Une erreur s'est produite</h1>
+        <h4 class='text-center'>Le serveur a renvoyé L'erreur :"{{ status_code }} {{ status_text }}".</h4>
+        <div>
+        <figure class='text-center'>
+            <img src="{{ asset('images/sad-1.jpg') }}" class="figure-img img-fluid rounded" alt="Image Sad Tricks">
+            <figcaption style="margin-top: -42px;"  >Message  : {{ exception.message }}</figcaption>
+        </figure>
+        <p>
+       Quelque chose est cassé. Veuillez nous envoyer un e-mail à : [email] et faites nous savoir
+         ce que vous faisiez lorsque cette erreur s'est produite. Nous allons le réparer dès que possible
+         . Désolé pour la gêne occasionnée. 
+        </p>
+    </div>
+
+        {% endblock %}
+    </div>
+
+
+
+    <div class="container-fluid">
+        <footer class="py-3 my-4 border-top text-center mb-2">
+            <span class="text-muted text-center">&copy; 2021 Nabil Mecili, tous droit réservés</span>
+        </footer>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+
+  </body>
+</html>
