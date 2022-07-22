@@ -137,4 +137,17 @@ class UserFormTest extends WebTestCase
         $this->assertSelectorTextContains('h1', 'Liste des utilisateurs');
 
     }
+
+    public function testDeleteUser(): void
+    {
+        $client = $this->connect();
+        
+        $id = '81';
+        
+        // Supprimer le User
+        $crawler = $client->request('GET', '/users/'.$id.'/delete');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+        
+    }
 }

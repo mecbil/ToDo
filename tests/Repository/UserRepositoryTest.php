@@ -21,7 +21,7 @@ class UserRepositoryTest extends KernelTestCase
             ->getManager();
     }
 
-    public function testSearchByName()
+    public function testSearchByNameOk()
     {
         $task = $this->entityManager
             ->getRepository(User::class)
@@ -29,6 +29,16 @@ class UserRepositoryTest extends KernelTestCase
         ;
 
         $this->assertSame('Deschamps', $task->getUsername());
+    }
+
+    public function testSearchByNameNo()
+    {
+        $task = $this->entityManager
+            ->getRepository(User::class)
+            ->findOneBy(['username' => 'coucou'])
+        ;
+
+        $this->assertNull($task);
     }
 
     protected function tearDown(): void

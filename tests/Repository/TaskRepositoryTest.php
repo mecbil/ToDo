@@ -31,6 +31,15 @@ class TaskRepositoryTest extends KernelTestCase
         $this->assertSame('Il ne se.', $task->getTitle());
     }
 
+    public function testTaskRepositoryFindAll(): void
+    {
+        $task = $this->entityManager
+            ->getRepository(Task::class)
+            ->findAll()
+        ;
+        self::assertEquals(18, count($task));
+    }
+
     protected function tearDown(): void
     {
         parent::tearDown();
