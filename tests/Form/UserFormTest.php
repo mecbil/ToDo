@@ -33,7 +33,7 @@ class UserFormTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 
-    public function testDisplayUserPageConnected(): void
+    public function testDisplayUserPageAdminConnected(): void
     {
         $client = $this->connect();
                
@@ -53,6 +53,33 @@ class UserFormTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
 
     }
+
+    public function testDisplayUserPageUserConnected(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
+        
+        $form = $crawler->selectButton('Se connecter')->form();
+
+        $form['_username'] = 'Delaunay';
+        $form['_password'] = 'Azerty1+';
+
+        $client->submit($form);
+               
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+
+        $this->assertSelectorTextContains('h1', "Bienvenue sur Todo List,");
+        
+        $client->request('GET', '/users');
+
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+      
+        $this->assertSelectorTextContains('h1', "Bienvenue sur Todo List,");
+
+    }
+
 
     public function testAddEditDeleteUser(): void
     {
