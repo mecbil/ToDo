@@ -55,10 +55,34 @@ class TaskControllerTest extends WebTestCase
 
     }
 
-    public function testDisplayTaskDonepage()
+    public function testDisplayTaskDonepageAdmin()
     {
         //Se connecter
         $client = $this->connect();
+
+        //Suivre la redirection
+        $this->assertResponseRedirects();
+        $client->followRedirect();   
+
+        //Aller à l'adresse /tasks 
+        $crawler = $client->request('GET', '/tasks/done');
+        //tester
+        $this->assertSelectorTextContains('p', "Créer une tâche");
+    }
+
+    public function testDisplayTaskDonepageUser()
+    {
+        //Se connecter
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
+        
+        $form = $crawler->selectButton('Se connecter')->form();
+
+        $form['_username'] = 'Delaunay';
+        $form['_password'] = 'Azerty1+';
+
+        $client->submit($form);
+
 
         //Suivre la redirection
         $this->assertResponseRedirects();
