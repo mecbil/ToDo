@@ -9,6 +9,8 @@ https://openclassrooms.com/projects/ameliorer-un-projet-existant-1
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b2b2b34954834ea3b6f971d14ef80047)](https://www.codacy.com/gh/mecbil/ToDo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mecbil/ToDo&amp;utm_campaign=Badge_Grade)
 
+<a href="https://codeclimate.com/github/mecbil/ToDo/maintainability"><img src="https://api.codeclimate.com/v1/badges/37788c4d330facf99b36/maintainability" /></a>
+
 ## Installation
 1. Clonez ou téléchargez le repository GitHub dans le dossier voulu :
 ```
