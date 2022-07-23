@@ -67,12 +67,12 @@ class UserController extends AbstractController
         
         $repoUser = $doctrine->getRepository(User::class);
         $user = $repoUser->find($id);
-
-        $this->denyAccessUnlessGranted("edit", $user);
         
         if (!$user) {
             throw $this->createNotFoundException('Enregistrement non trouvé');
         }
+
+        $this->denyAccessUnlessGranted("edit", $user);
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -106,6 +106,7 @@ class UserController extends AbstractController
     {
         $repoUser = $doctrine->getRepository(User::class);
         $user = $repoUser->find($id);
+
         if (!$user) {
             throw $this->createNotFoundException('Enregistrement non trouvé');
         }

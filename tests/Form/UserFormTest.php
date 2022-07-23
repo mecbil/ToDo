@@ -43,10 +43,6 @@ class UserFormTest extends WebTestCase
         $this->assertSelectorTextContains('h1', "Bienvenue sur Todo List,");
         
         $client->request('GET', '/users');
-        // $crawler->selectLink('Lister les utilisateurs')->link();
-
-        // $this->assertResponseRedirects();
-        // $client->followRedirect();
 
         $this->assertSelectorTextContains('h1', 'Liste des utilisateurs');
         
@@ -61,7 +57,7 @@ class UserFormTest extends WebTestCase
         
         $form = $crawler->selectButton('Se connecter')->form();
 
-        $form['_username'] = 'Delaunay';
+        $form['_username'] = 'Delaunay';// à changer 
         $form['_password'] = 'Azerty1+';
 
         $client->submit($form);
@@ -150,4 +146,18 @@ class UserFormTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
         
     }
+
+    public function testUserEditNotFound()
+    {
+        $client = $this->connect();
+
+        $id = '81';
+        
+        // Editer le User
+        $crawler = $client->request('GET', '/users/'.$id.'/edit');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+
+    }
+
 }
