@@ -5,6 +5,10 @@ Base du projet #8 : Améliorez un projet existant
 
 https://openclassrooms.com/projects/ameliorer-un-projet-existant-1
 
+## Badge
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b2b2b34954834ea3b6f971d14ef80047)](https://www.codacy.com/gh/mecbil/ToDo/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mecbil/ToDo&amp;utm_campaign=Badge_Grade)
+
 ## Installation
 1. Clonez ou téléchargez le repository GitHub dans le dossier voulu :
 ```
