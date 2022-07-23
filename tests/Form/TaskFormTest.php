@@ -4,6 +4,7 @@ namespace App\Tests\Form;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\Loader\Configurator\request;
 
 class TaskFormTest extends WebTestCase
 {
@@ -29,19 +30,6 @@ class TaskFormTest extends WebTestCase
 
         $this->assertResponseRedirects();
         $client->followRedirect();
-
-        $crawler = $client->request('GET', '/tasks/create');
-        $this->assertSelectorTextContains('label', 'Title');
-
-        $form = $crawler->selectButton('Ajouter')->form();
-        $form["task[title]"] = 'title';
-        $form["task[content]"] = 'content';
-
-        $client->submit($form);
-
-        $this->assertResponseRedirects();
-        $client->followRedirect();
-        $this->assertSelectorExists('.alert.alert-success');
 
     }
 }

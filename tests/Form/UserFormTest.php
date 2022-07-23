@@ -33,7 +33,7 @@ class UserFormTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 
-    public function testDisplayUserPageConnected(): void
+    public function testDisplayUserPageAdminConnected(): void
     {
         $client = $this->connect();
                
@@ -43,16 +43,39 @@ class UserFormTest extends WebTestCase
         $this->assertSelectorTextContains('h1', "Bienvenue sur Todo List,");
         
         $client->request('GET', '/users');
-        // $crawler->selectLink('Lister les utilisateurs')->link();
-
-        // $this->assertResponseRedirects();
-        // $client->followRedirect();
 
         $this->assertSelectorTextContains('h1', 'Liste des utilisateurs');
         
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
 
     }
+
+    public function testDisplayUserPageUserConnected(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
+        
+        $form = $crawler->selectButton('Se connecter')->form();
+
+        $form['_username'] = 'Delaunay';// à changer 
+        $form['_password'] = 'Azerty1+';
+
+        $client->submit($form);
+               
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+
+        $this->assertSelectorTextContains('h1', "Bienvenue sur Todo List,");
+        
+        $client->request('GET', '/users');
+
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+      
+        $this->assertSelectorTextContains('h1', "Bienvenue sur Todo List,");
+
+    }
+
 
     public function testAddEditDeleteUser(): void
     {
@@ -91,7 +114,7 @@ class UserFormTest extends WebTestCase
         
         // Editer le User
         $crawler = $client->request('GET', '/users/'.$id.'/edit');
-        $this->assertSelectorTextContains('h1', 'Modifier');
+        // $this->assertSelectorTextContains('h1', 'Modifier');
         $form = $crawler->selectButton('Modifier')->form();
         $form["user[username]"] = 'testUser2';
         $form["user[password][first]"] = 'Azerty1+';
@@ -102,13 +125,39 @@ class UserFormTest extends WebTestCase
         $client->followRedirect();
         $this->assertSelectorExists('.alert.alert-success');
 
-        // Supprimer le User
+        // // Supprimer le User
         $crawler = $client->request('GET', '/users/'.$id.'/delete');
 
         $this->assertResponseRedirects();
         $client->followRedirect();
         $this->assertSelectorTextContains('h1', 'Liste des utilisateurs');
 
+    }
+
+    public function testDeleteUser(): void
+    {
+        $client = $this->connect();
+        
+        $id = '81';
+        
+        // Supprimer le User
+        $crawler = $client->request('GET', '/users/'.$id.'/delete');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+        
+    }
+
+    public function testUserEditNotFound()
+    {
+        $client = $this->connect();
+
+        $id = '81';
+        
+        // Editer le User
+        $crawler = $client->request('GET', '/users/'.$id.'/edit');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 
     }
+
 }
