@@ -57,7 +57,7 @@ class UserFormTest extends WebTestCase
         
         $form = $crawler->selectButton('Se connecter')->form();
 
-        $form['_username'] = 'Delaunay';// à changer 
+        $form['_username'] = 'Delaunay';// Nom USER à changer en fonction de votre fixture
         $form['_password'] = 'Azerty1+';
 
         $client->submit($form);
