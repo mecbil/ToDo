@@ -24,6 +24,23 @@ class UserFormTest extends WebTestCase
         return $client;
     }
 
+    public function lastId($name)
+    {
+        //Recuperer le LastId
+        $kernel = self::bootKernel();
+        $this->entityManager = $kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+            
+        $usertest = $this->entityManager
+            ->getRepository(User::class)
+            ->findOneBy(['username' => $name])
+        ;
+        $id = $usertest->getId();
+
+        return $id;
+    }
+
     // Tester la page Users sans etre connecter
     public function testDisplayTaskPageUsersNotConnected(): void
     {
@@ -77,7 +94,7 @@ class UserFormTest extends WebTestCase
     }
 
 
-    public function testAddEditDeleteUser(): void
+    public function testAddUser(): void
     {
         $client = $this->connect();
         //Add user
@@ -99,18 +116,15 @@ class UserFormTest extends WebTestCase
         $this->assertResponseRedirects();
         $client->followRedirect();
         $this->assertSelectorExists('.alert.alert-success');
+    }
 
-        //Recuperer le LastId
-        $kernel = self::bootKernel();
-        $this->entityManager = $kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
-           
-        $user = $this->entityManager
-            ->getRepository(User::class)
-            ->findOneBy(['username' => 'testUser'])
-        ;
-        $id = $user->getId();
+    public function testEditUser(): void
+    {
+        $client = $this->connect();
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+
+        $id = $this->lastId('testUser');
         
         // Editer le User
         $crawler = $client->request('GET', '/users/'.$id.'/edit');
@@ -124,8 +138,17 @@ class UserFormTest extends WebTestCase
         $this->assertResponseRedirects();
         $client->followRedirect();
         $this->assertSelectorExists('.alert.alert-success');
+    }
 
-        // // Supprimer le User
+    public function testDeleteUser(): void
+    {       
+        $client = $this->connect();
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+
+        $id = $this->lastId('testUser2');
+
+        // Supprimer le User
         $crawler = $client->request('GET', '/users/'.$id.'/delete');
 
         $this->assertResponseRedirects();
@@ -134,7 +157,7 @@ class UserFormTest extends WebTestCase
 
     }
 
-    public function testDeleteUser(): void
+    public function testDeleteUserNotFound(): void
     {
         $client = $this->connect();
         
