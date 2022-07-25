@@ -15,10 +15,10 @@ class UserVoter extends Voter
 
     private $security;
 
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
+    // public function __construct(Security $security)
+    // {
+    //     $this->security = $security;
+    // }
 
     protected function supports($attribute, $subject)
     {
