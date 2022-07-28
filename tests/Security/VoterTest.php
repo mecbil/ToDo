@@ -7,8 +7,9 @@ use App\Security\Voter\TaskVoter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class TaskVoterTest extends TestCase
+class VoterTest extends WebTestCase
 {
     public function testVoteOnAttributeFalse()
     {
