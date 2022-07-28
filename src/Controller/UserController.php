@@ -72,8 +72,8 @@ class UserController extends AbstractController
             throw $this->createNotFoundException('Enregistrement non trouvé');
         }
 
-        $this->denyAccessUnlessGranted("edit", $user);
-        $form = $this->createForm(UserType::class, $user);
+        if ($this->isGranted('ROLE_ADMIN', $user)) {
+            $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
@@ -95,6 +95,8 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('user_list');
         }
+        
+        }
 
         return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
     }
@@ -111,6 +113,7 @@ class UserController extends AbstractController
             throw $this->createNotFoundException('Enregistrement non trouvé');
         }
 
+        if ($this->isGranted('ROLE_ADMIN', $user)) {
         // Supprimer l'utilisateur
         $em->remove($user);
         $em->flush();
@@ -120,5 +123,6 @@ class UserController extends AbstractController
         $this->addFlash('success', "L'utilisateur a bien été supprimé");
 
         return $this->redirectToRoute('user_list');
+        }
     }
 }
