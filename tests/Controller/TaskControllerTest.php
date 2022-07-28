@@ -48,12 +48,36 @@ class TaskControllerTest extends WebTestCase
         $this->assertResponseRedirects();
         $client->followRedirect();   
 
-        //Aller à l'adresse /tasks 
+        //Aller à l'adresse /tasks/create
         $crawler = $client->request('GET', '/tasks/create');
         //tester
         $this->assertSelectorTextContains('label', "Title");
 
     }
+
+    public function testTaskToggle()
+    {
+        //Se connecter
+        $client = $this->connect();
+        //Suivre la redirection
+        $this->assertResponseRedirects();
+        $client->followRedirect();   
+
+        //Aller à l'adresse /tasks/$id/toggle
+        $crawler = $client->request('GET', '/tasks/1/toggle');
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+        //tester
+        $this->assertSelectorExists('.alert.alert-success');
+        //Aller à l'adresse /tasks/$id/toggle
+        $crawler = $client->request('GET', '/tasks/1/toggle');
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+        //tester
+        $this->assertSelectorExists('.alert.alert-success');
+
+    }
+
 
     public function testDisplayTaskDonepageAdmin()
     {
@@ -140,7 +164,7 @@ class TaskControllerTest extends WebTestCase
         $client->followRedirect();
         $this->assertSelectorExists('.alert.alert-success');
 
-        // Supprimer le User
+        // Supprimer le Task
         $crawler = $client->request('GET', '/tasks/'.$id.'/delete');
 
         $this->assertResponseRedirects();
