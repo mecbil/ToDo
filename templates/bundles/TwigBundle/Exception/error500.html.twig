@@ -3,5 +3,22 @@
 {% block title %} coucou {% endblock %}
 
 {% block body %} 
-  <h1>erreur 500<h1>
+<div class="Container col-8 mx-auto">
+    <h1 class='text-center'>Oops! Une erreur s'est produite</h1>
+    <h4 class='text-center'>Le serveur a renvoyé L'erreur :"{{ status_code }} {{ status_text }}".</h4>
+    <div>
+    <figure class='text-center'>
+        <img src="{{ asset('img/todolist_content.jpg') }}" class="figure-img img-fluid rounded" alt="Image Sad Tricks">
+        <figcaption class="container">Message  : {{ exception.message }}</figcaption>
+        <p>
+          Veuillez nous envoyer un e-mail à : [<a href="mailto:admin@todolist.com">L'administrateur</a>] et faites nous savoir
+          ce que vous faisiez lorsque cette erreur s'est produite. Nous allons le réparer dès que possible
+          . Désolé pour la gêne occasionnée. 
+        </p>
+        <p>
+          [<a href="/">Page d'Acceuil</a>]
+        </p>
+    </figure>
+
+  </div>
 {% endblock %}
